@@ -2,16 +2,15 @@ package com.Stormzyz.Pokeopedia.api.Services;
 
 import com.Stormzyz.Pokeopedia.api.DTO.TypeEffectiveness.CreateTypeEffectiveness;
 import com.Stormzyz.Pokeopedia.api.DTO.TypeEffectiveness.SeeTypeEffectiveness;
-import com.Stormzyz.Pokeopedia.api.Models.PokemonTypes;
+import com.Stormzyz.Pokeopedia.api.Models.PokemonType;
 import com.Stormzyz.Pokeopedia.api.Models.TypeEffectiveness;
-import com.Stormzyz.Pokeopedia.api.Repositories.PokemonTypesRepository;
+import com.Stormzyz.Pokeopedia.api.Repositories.PokemonTypeRepository;
 import com.Stormzyz.Pokeopedia.api.Repositories.TypeEffectivenessRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ import java.util.List;
 public class TypeEffectivenessService {
 
     private TypeEffectivenessRepository typeEffectivenessRepository;
-    private PokemonTypesRepository pokemonTypesRepository;
+    private PokemonTypeRepository pokemonTypeRepository;
 
     public List<SeeTypeEffectiveness> SeeAllTypeEffectiveness(){
         List<TypeEffectiveness> seeTypeEffectiveness = typeEffectivenessRepository.findAll();
@@ -43,10 +42,10 @@ public class TypeEffectivenessService {
 
     public TypeEffectiveness create(CreateTypeEffectiveness dto){
 
-        PokemonTypes attackingType = pokemonTypesRepository.findById(dto.getAttackingId()).orElseThrow(() ->
+        PokemonType attackingType = pokemonTypeRepository.findById(dto.getAttackingId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pokemon type not found")
         );
-        PokemonTypes defendingType = pokemonTypesRepository.findById(dto.getDefendingId()).orElseThrow(() ->
+        PokemonType defendingType = pokemonTypeRepository.findById(dto.getDefendingId()).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pokemon type not found")
         );
 

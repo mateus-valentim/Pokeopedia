@@ -6,17 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@Table(name = "type_effectiveness")
+@AllArgsConstructor
 @Entity
-public class TypeEffectiveness {
+@Table(name="type_ability_effectiveness")
+public class TypeAbilityEffectiveness {
+
     @Id
-    @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,11 +26,10 @@ public class TypeEffectiveness {
     private PokemonType attackingType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "defending_type_id")
-    private PokemonType defendingType;
+    @JoinColumn(name="defending_ability_id")
+    private Ability defendingAbility;
 
-    @Column(nullable = false, unique = false, precision = 3, scale = 2)
+    @Column(nullable = false)
     private BigDecimal multiplier;
-
 
 }

@@ -154,11 +154,12 @@ CREATE TABLE Pokepedia.pokemon_abilities_link(
 );
 
 CREATE TABLE Pokepedia.type_ability_effectiveness(
+	id BIGINT NOT NULL AUTO_INCREMENT,
 	attacking_type_id BIGINT NOT NULL,
     defending_ability_id BIGINT NOT NULL,
     multiplier DECIMAL(3,2),
     
-    PRIMARY KEY (attacking_type_id, defending_ability_id),
+    PRIMARY KEY (id),
     FOREIGN KEY (attacking_type_id) REFERENCES Pokepedia.pokemon_types(id),
     FOREIGN KEY (defending_ability_id) REFERENCES Pokepedia.abilities(id)
     
