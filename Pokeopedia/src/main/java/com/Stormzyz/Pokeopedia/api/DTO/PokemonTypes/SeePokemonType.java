@@ -1,8 +1,7 @@
 package com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes;
 
-import com.Stormzyz.Pokeopedia.api.Models.PokemonTypes;
+import com.Stormzyz.Pokeopedia.api.Models.PokemonType;
 import com.Stormzyz.Pokeopedia.api.Models.TypeEffectiveness;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,19 +20,19 @@ public class SeePokemonType {
 
 
 
-    public SeePokemonType(PokemonTypes pokemonTypes) {
-        this.id = pokemonTypes.getId();
-        this.typeName = pokemonTypes.getTypeName();
-        this.colorhex = pokemonTypes.getColorhex();
-        this.atackingEffectiveness = pokemonTypes.getAtackingEffectiveness() == null
+    public SeePokemonType(PokemonType pokemonType) {
+        this.id = pokemonType.getId();
+        this.typeName = pokemonType.getTypeName();
+        this.colorhex = pokemonType.getColorhex();
+        this.atackingEffectiveness = pokemonType.getAtackingEffectiveness() == null
                 ? List.of()
-                : pokemonTypes.getAtackingEffectiveness()
+                : pokemonType.getAtackingEffectiveness()
                 .stream()
                 .map(AttackingTypeDTO::new)
                 .toList();
-        this.defendingEffectiveness = pokemonTypes.getDefendingEffectiveness() == null
+        this.defendingEffectiveness = pokemonType.getDefendingEffectiveness() == null
                 ? List.of()
-                : pokemonTypes.getDefendingEffectiveness()
+                : pokemonType.getDefendingEffectiveness()
                 .stream()
                 .map(DefendingTypeDTO::new)
                 .toList();

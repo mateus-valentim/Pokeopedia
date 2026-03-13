@@ -3,7 +3,7 @@ package com.Stormzyz.Pokeopedia.api.Controllers;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.CreatePokemonType;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.EditPokemonType;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.SeePokemonType;
-import com.Stormzyz.Pokeopedia.api.Models.PokemonTypes;
+import com.Stormzyz.Pokeopedia.api.Models.PokemonType;
 import com.Stormzyz.Pokeopedia.api.Services.PokemonTypeServices;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/typing")
-public class PokemonTypesController {
+public class PokemonTypeController {
 
     PokemonTypeServices  pokemonTypeServices;
 
@@ -32,7 +32,7 @@ public class PokemonTypesController {
     @PostMapping
     ResponseEntity<SeePokemonType> createPokemonType(@Valid @RequestBody CreatePokemonType createPokemonType){
 
-        PokemonTypes type = pokemonTypeServices.create(createPokemonType);
+        PokemonType type = pokemonTypeServices.create(createPokemonType);
 
         return  ResponseEntity.status(HttpStatus.CREATED).body(new SeePokemonType(type));
 
@@ -40,7 +40,7 @@ public class PokemonTypesController {
 
     @PatchMapping("/{id}")
     ResponseEntity<SeePokemonType> editPokemonType(@Valid @PathVariable long id, @Valid @RequestBody EditPokemonType editPokemonType){
-        PokemonTypes type = pokemonTypeServices.edit(editPokemonType, id);
+        PokemonType type = pokemonTypeServices.edit(editPokemonType, id);
         return  ResponseEntity.status(HttpStatus.OK).body(new SeePokemonType(type));
     }
 

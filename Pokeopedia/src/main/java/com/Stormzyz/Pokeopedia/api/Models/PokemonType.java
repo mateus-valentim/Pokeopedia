@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="pokemon_types")
-public class PokemonTypes {
+public class PokemonType {
 
     @Id
     @Column(nullable = false, unique = true)

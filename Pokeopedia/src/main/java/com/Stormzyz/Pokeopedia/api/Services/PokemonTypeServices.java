@@ -3,8 +3,8 @@ package com.Stormzyz.Pokeopedia.api.Services;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.CreatePokemonType;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.EditPokemonType;
 import com.Stormzyz.Pokeopedia.api.DTO.PokemonTypes.SeePokemonType;
-import com.Stormzyz.Pokeopedia.api.Models.PokemonTypes;
-import com.Stormzyz.Pokeopedia.api.Repositories.PokemonTypesRepository;
+import com.Stormzyz.Pokeopedia.api.Models.PokemonType;
+import com.Stormzyz.Pokeopedia.api.Repositories.PokemonTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,29 +17,35 @@ import java.util.List;
 @Service
 public class PokemonTypeServices {
 
-    PokemonTypesRepository pokemonTypesRepository;
+    PokemonTypeRepository pokemonTypeRepository;
 
 
     public List<SeePokemonType> SeeAllPokemonTypes(){
-        return pokemonTypesRepository.findAll().stream().map(SeePokemonType::new).toList();
+        return pokemonTypeRepository.findAll().stream().map(SeePokemonType::new).toList();
     }
 
     public List<SeePokemonType> SeePokemonTypesName(String name){
-        return pokemonTypesRepository.findByTypeNameContainingIgnoreCase(name).stream().map(SeePokemonType::new).toList();
+        return pokemonTypeRepository.findByTypeNameContainingIgnoreCase(name).stream().map(SeePokemonType::new).toList();
     }
 
-    public PokemonTypes create(CreatePokemonType dto){
+    public PokemonType FindById(Long id){
+        return pokemonTypeRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pokemon Type Not Found")
+        );
+    }
 
-        PokemonTypes type = new PokemonTypes();
+    public PokemonType create(CreatePokemonType dto){
+
+        PokemonType type = new PokemonType();
         type.setTypeName(dto.getTypeName());
         type.setColorhex(dto.getColorhex());
 
-        return pokemonTypesRepository.save(type);
+        return pokemonTypeRepository.save(type);
 
     }
 
-    public PokemonTypes edit(EditPokemonType dto, long id){
-        PokemonTypes type = pokemonTypesRepository.findById(id)
+    public PokemonType edit(EditPokemonType dto, long id){
+        PokemonType type = pokemonTypeRepository.findById(id)
                 .orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Pokemon type not found")
         );
@@ -51,17 +57,17 @@ public class PokemonTypeServices {
             type.setColorhex(dto.getColorhex());
         }
 
-        return pokemonTypesRepository.save(type);
+        return pokemonTypeRepository.save(type);
     }
 
     public void delete(long id){
-        PokemonTypes type = pokemonTypesRepository.findById(id)
+        PokemonType type = pokemonTypeRepository.findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Pokemon type not found")
                 );
 
 
-        pokemonTypesRepository.delete(type);
+        pokemonTypeRepository.delete(type);
     }
 }
 
